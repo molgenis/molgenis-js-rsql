@@ -105,6 +105,35 @@ describe('rsql', () => {
         })).to.equal('(x==5,y==3);w==3')
       })
 
+      it('should skip single operand AND child of AND parent: (x==5,y==3);w==3', () => {
+        expect(transformToRSQL({
+          operator: 'AND',
+          operands: [
+            {
+              operator: 'AND',
+              operands: [{
+                operator: 'OR',
+                operands: [
+                  {
+                    selector: 'x',
+                    comparison: '==',
+                    arguments: 5
+                  },
+                  {
+                    selector: 'y',
+                    comparison: '==',
+                    arguments: 3
+                  }]
+              }]
+            },
+            {
+              selector: 'w',
+              comparison: '==',
+              arguments: 3
+            }]
+        })).to.equal('(x==5,y==3);w==3')
+      })
+
       it('should correctly transform complex query: (x==5;(x==5,y==3,z==3),z==3);w==3', () => {
         expect(transformToRSQL({
           operator: 'AND',
@@ -151,6 +180,54 @@ describe('rsql', () => {
               arguments: 3
             }]
         })).to.equal('(x==5;(x==5,y==3,z==3),z==3);w==3')
+      })
+
+      it('should drill down past single OR child when determining if child should be wrapped: (x==5,y==3);w==3', () => {
+        expect(transformToRSQL({
+          operator: 'AND',
+          operands: [
+            {
+              operator: 'OR',
+              operands: [
+                {
+                  operator: 'OR',
+                  operands: [
+                    {
+                      selector: 'x',
+                      comparison: '==',
+                      arguments: 5
+                    },
+                    {
+                      selector: 'y',
+                      comparison: '==',
+                      arguments: 3
+                    }]
+                }]
+            },
+            {
+              selector: 'w',
+              comparison: '==',
+              arguments: 3
+            }]
+        })).to.equal('(x==5,y==3);w==3')
+      })
+
+      it('need not wrap only OR child of AND operator', () => {
+        expect(transformToRSQL({
+          operator: 'AND',
+          operands: [{
+            operator: 'OR',
+            operands: [{
+              selector: 'x',
+              comparison: '==',
+              arguments: 5
+            }, {
+              selector: 'y',
+              comparison: '==',
+              arguments: 3
+            }]
+          }]
+        })).to.equal('x==5,y==3')
       })
     })
 

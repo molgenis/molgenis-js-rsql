@@ -57,17 +57,26 @@ function getRsqlFromSimpleConstraint (constraint) {
  * The OR operator has lower precedence than the AND operator so an OR constraint with more than one operand and an
  * AND parent needs to be wrapped.
  *
- * @param parentOperator operator of the parent constraint
+ * @param perhapsWrap The child constraint may need to be wrapped
  * @param constraint the child constraint to transform to rsql
  * @returns {string}
  */
-function getChildRsql (parentOperator, constraint) {
+function getChildRsql (perhapsWrap, constraint) {
   const rsql = getRsqlFromConstraint(constraint)
-  return parentOperator === 'AND' && constraint.operator === 'OR' && constraint.operands.length > 1 ? `(${rsql})` : rsql
+  if (constraint.operands && constraint.operands.length === 1) {
+    // Skip this node, render the only child node
+    return getChildRsql(perhapsWrap, constraint.operands[0])
+  }
+  if (perhapsWrap && constraint.operator === 'OR') {
+    if (constraint.operands.length > 1) {
+      return `(${rsql})`
+    }
+  }
+  return rsql
 }
 
-function getRsqlFromComplexConstraint (constraint) {
-  const operator = constraint.operator === 'OR' ? ',' : ';'
-  const rsqlParts = constraint.operands.map(child => getChildRsql(constraint.operator, child))
-  return rsqlParts.join(operator)
+function getRsqlFromComplexConstraint ({operator, operands}) {
+  return operands
+    .map(child => getChildRsql(operator === 'AND' && operands.length > 1, child))
+    .join(operator === 'OR' ? ',' : ';')
 }
