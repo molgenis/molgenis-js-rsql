@@ -153,6 +153,14 @@ describe('rsql', () => {
       })
     })
 
+    it('should transform in constraint with array arguments: x=in=(A,B)', () => {
+      expect(transformToRSQL({
+        selector: 'x',
+        comparison: '=in=',
+        arguments: ['A', 'B']
+      })).to.equal('x=in=(A,B)')
+    })
+
     it('should transform in constraint with string argument: x==A', () => {
       expect(transformToRSQL({
         selector: 'x',
@@ -186,13 +194,13 @@ describe('rsql', () => {
         })).to.equal('x=q=\'Hello!\'')
       })
 
-      // it('should escape array arguments: x=in=(\'Hello!\',\'Good==Bye\')', () => {
-      //   expect(transformToRSQL({
-      //     selector: 'x',
-      //     comparison: '=in=',
-      //     arguments: ['Hello!', 'Good==Bye']
-      //   })).to.equal('x=in=(\'Hello!\',\'Good==Bye\')')
-      // })
+      it('should escape array arguments: x=in=(\'Hello!\',\'Good==Bye\')', () => {
+        expect(transformToRSQL({
+          selector: 'x',
+          comparison: '=in=',
+          arguments: ['Hello!', 'Good==Bye']
+        })).to.equal('x=in=(\'Hello!\',\'Good==Bye\')')
+      })
     })
   })
 })
