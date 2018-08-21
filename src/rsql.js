@@ -45,10 +45,28 @@ function getRsqlFromSimpleConstraint (constraint) {
   return toRsqlValue(constraint.selector) + constraint.comparison + toRsqlValue(constraint.arguments)
 }
 
+/**
+ * Transforms a constraint to rsql, and wraps it in brackets if needed.
+ *
+ * Brackets are needed if the precedence of the operator in the subtree has lower precedence than the operator of the parent.
+ * The rsql comparison operators all have higher precedence than the AND and OR operators so a simple constraint never
+ * needs to be wrapped.
+ * The OR operator has lower precedence than the AND operator so an OR constraint with more than one operand and an
+ * AND parent needs to be wrapped.
+ *
+ * @param parentOperator operator of the parent constraint
+ * @param constraint the child constraint to transform to rsql
+ * @returns {string}
+ */
+function getChildRsql (parentOperator, constraint) {
+  const rsql = getRsqlFromConstraint(constraint)
+  return parentOperator === 'AND' && constraint.operator === 'OR' && constraint.operands.length > 1 ? `(${rsql})` : rsql
+}
+
 function getRsqlFromComplexConstraint (constraint) {
   const operator = constraint.operator === 'OR' ? ',' : ';'
-  const rsqlParts = constraint.operands.map(getRsqlFromConstraint)
-  return '(' + rsqlParts.join(operator) + ')'
+  const rsqlParts = constraint.operands.map(child => getChildRsql(constraint.operator, child))
+  return rsqlParts.join(operator)
 }
 export default {
   transformToRSQL

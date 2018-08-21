@@ -11,7 +11,7 @@ describe('rsql', () => {
       })).to.equal('x==5')
     })
 
-    it('should transform (x==5;y==3)', () => {
+    it('should transform x==5;y==3', () => {
       expect(transformToRSQL({
         operator: 'AND',
         operands: [
@@ -25,7 +25,132 @@ describe('rsql', () => {
             comparison: '==',
             arguments: 3
           }]
-      })).to.equal('(x==5;y==3)')
+      })).to.equal('x==5;y==3')
+    })
+
+    describe('should add brackets around OR expressions with AND parent', () => {
+      it('should not wrap OR with single operand: z==3;w==3', () => {
+        expect(transformToRSQL({
+          operator: 'AND',
+          operands: [
+            {
+              operator: 'OR',
+              operands: [
+                {
+                  selector: 'z',
+                  comparison: '==',
+                  arguments: 3
+                }
+              ]
+            },
+            {
+              selector: 'w',
+              comparison: '==',
+              arguments: 3
+            }]
+        })).to.equal('z==3;w==3')
+      })
+
+      it('should not transform AND child of OR parent: z==3;y==5,w==3', () => {
+        expect(transformToRSQL({
+          operator: 'OR',
+          operands: [
+            {
+              operator: 'AND',
+              operands: [
+                {
+                  selector: 'z',
+                  comparison: '==',
+                  arguments: 3
+                },
+                {
+                  selector: 'y',
+                  comparison: '==',
+                  arguments: 5
+                }
+              ]
+            },
+            {
+              selector: 'w',
+              comparison: '==',
+              arguments: 3
+            }]
+        })).to.equal('z==3;y==5,w==3')
+      })
+
+      it('should wrap OR child of AND parent: (x==5,y==3);w==3', () => {
+        expect(transformToRSQL({
+          operator: 'AND',
+          operands: [
+            {
+              operator: 'OR',
+              operands: [
+                {
+                  selector: 'x',
+                  comparison: '==',
+                  arguments: 5
+                },
+                {
+                  selector: 'y',
+                  comparison: '==',
+                  arguments: 3
+                }]
+            },
+            {
+              selector: 'w',
+              comparison: '==',
+              arguments: 3
+            }]
+        })).to.equal('(x==5,y==3);w==3')
+      })
+
+      it('should correctly transform complex query: (x==5;(x==5,y==3,z==3),z==3);w==3', () => {
+        expect(transformToRSQL({
+          operator: 'AND',
+          operands: [
+            {
+              operator: 'OR',
+              operands: [
+                {
+                  operator: 'AND',
+                  operands: [
+                    {
+                      selector: 'x',
+                      comparison: '==',
+                      arguments: 5
+                    },
+                    {
+                      operator: 'OR',
+                      operands: [
+                        {
+                          selector: 'x',
+                          comparison: '==',
+                          arguments: 5
+                        },
+                        {
+                          selector: 'y',
+                          comparison: '==',
+                          arguments: 3
+                        }, {
+                          selector: 'z',
+                          comparison: '==',
+                          arguments: 3
+                        }]
+                    }]
+                },
+                {
+                  selector: 'z',
+                  comparison: '==',
+                  arguments: 3
+                }]
+            },
+            {
+              selector: 'w',
+              comparison: '==',
+              arguments: 3
+            }]
+        })).to.equal('(x==5;(x==5,y==3,z==3),z==3);w==3')
+      })
     })
 
     it('should transform in constraint with string argument: x==A', () => {
@@ -60,6 +185,14 @@ describe('rsql', () => {
           arguments: 'Hello!'
         })).to.equal('x=q=\'Hello!\'')
       })
+
+      // it('should escape array arguments: x=in=(\'Hello!\',\'Good==Bye\')', () => {
+      //   expect(transformToRSQL({
+      //     selector: 'x',
+      //     comparison: '=in=',
+      //     arguments: ['Hello!', 'Good==Bye']
+      //   })).to.equal('x=in=(\'Hello!\',\'Good==Bye\')')
+      // })
     })
   })
 })
