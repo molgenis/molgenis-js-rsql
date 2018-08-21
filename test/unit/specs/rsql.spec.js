@@ -1,5 +1,6 @@
-import {transformToRSQL} from '../../../src/rsql'
+import { transformToRSQL } from '../../../src/rsql'
 import { expect } from 'chai'
+import { describe, it } from 'mocha'
 
 describe('rsql', () => {
   describe('transformToRSQL', () => {
