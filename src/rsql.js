@@ -71,6 +71,3 @@ function getRsqlFromComplexConstraint (constraint) {
   const rsqlParts = constraint.operands.map(child => getChildRsql(constraint.operator, child))
   return rsqlParts.join(operator)
 }
-export default {
-  transformToRSQL
-}
