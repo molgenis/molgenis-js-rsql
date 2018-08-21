@@ -1,6 +1,6 @@
 {
   "name": "@molgenis/rsql",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "RSQL javascript tools for transforming, encoding and parsing of strings to RSQL and vice versa",
   "main": "dist/rsql.js",
   "module": "dist/rsql.es.js",
