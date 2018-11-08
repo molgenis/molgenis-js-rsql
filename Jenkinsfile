@@ -110,4 +110,3 @@ def notifySuccess() {
 def notifyFailed() {
     hubotSend(message: 'Build failed', status:'ERROR', site: 'slack-pr-app-team')
 }
-}
