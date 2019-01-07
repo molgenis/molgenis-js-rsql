@@ -11,7 +11,8 @@
     "debug": "standard; mocha --compilers js:babel-register --debug-brk",
     "unit:watch": "standard; mocha --compilers js:babel-register --reporter min --watch",
     "build": "rollup -c",
-    "preversion": "yarn install; yarn unit; yarn build"
+    "preversion": "yarn install; yarn unit",
+    "postversion": "yarn build"
   },
   "publishConfig": {
     "access": "public",
