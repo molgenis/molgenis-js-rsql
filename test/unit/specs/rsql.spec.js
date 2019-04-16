@@ -29,6 +29,14 @@ describe('rsql', () => {
       })).to.equal('x==5;y==3')
     })
 
+    it('should transform empty-string argument: x==\'\'', () => {
+      expect(transformToRSQL({
+        selector: 'x',
+        comparison: '==',
+        arguments: ''
+      })).to.equal("x==''")
+    })
+
     describe('should add brackets around OR expressions with AND parent', () => {
       it('should not wrap OR with single operand: z==3;w==3', () => {
         expect(transformToRSQL({

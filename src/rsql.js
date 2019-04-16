@@ -24,6 +24,9 @@ export function toRsqlValue (value) {
   if (Array.isArray(value)) {
     return `(${value.map(toRsqlValue).join()})`
   }
+  if (value.length === 0) {
+    return "''"
+  }
   return containsRsqlReservedCharacter(value) ? rsqlEscape(value) : value
 }
 
