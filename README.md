@@ -1,4 +1,4 @@
-# rsql-js
+# molgenis-js-rsql
 [![codecov](https://codecov.io/gh/molgenis/molgenis-js-rsql/branch/master/graph/badge.svg)](https://codecov.io/gh/molgenis/molgenis-js-rsql)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
