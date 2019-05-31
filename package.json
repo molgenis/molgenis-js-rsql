@@ -18,8 +18,12 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      [ "@semantic-release/changelog",
-          {"changelogFile": "CHANGELOG.md" } ],
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
       "@semantic-release/npm",
       "@semantic-release/git",
       "@semantic-release/github"
@@ -39,6 +43,8 @@
     "mdurl": "^1.0.1"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^3.0.2",
+    "@semantic-release/git": "^7.0.8",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-runtime": "^6.15.0",
@@ -54,6 +60,7 @@
     "rollup-plugin-commonjs": "^9.1.5",
     "rollup-plugin-istanbul": "^2.0.1",
     "rollup-plugin-node-resolve": "^3.3.0",
+    "semantic-release": "^15.13.12",
     "standard": "^11.0.1"
   },
   "babel": {
