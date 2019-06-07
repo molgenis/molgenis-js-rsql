@@ -79,6 +79,7 @@ pipeline {
             steps {
                 milestone 2
                 container('node') {
+                    sh "npm config set unsafe-perm true"
                     sh "npx semantic-release"
                 }
             }
