@@ -1,6 +1,6 @@
 {
   "name": "@molgenis/rsql",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "keywords": [],
   "main": "dist/rsql.umd.js",
