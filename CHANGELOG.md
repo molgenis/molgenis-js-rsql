@@ -1,3 +1,10 @@
+## [0.2.5](https://github.com/molgenis/molgenis-js-rsql/compare/v0.2.4...v0.2.5) (2019-10-07)
+
+
+### Bug Fixes
+
+* **export typings:** export typing explicitly in rsql.ts to use in de ([84624b5](https://github.com/molgenis/molgenis-js-rsql/commit/84624b5))
+
 ## [0.2.4](https://github.com/molgenis/molgenis-js-rsql/compare/v0.2.3...v0.2.4) (2019-10-07)
 
 
