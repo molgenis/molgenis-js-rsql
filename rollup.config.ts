@@ -7,7 +7,7 @@ import json from 'rollup-plugin-json'
 
 const pkg = require('./package.json')
 
-const libraryName = 'molgenis-js-rsql'
+const libraryName = 'rsql'
 
 export default {
   input: `src/${libraryName}.ts`,

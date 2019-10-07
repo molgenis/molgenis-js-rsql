@@ -1,4 +1,4 @@
-import { transformToRSQL } from '../src/molgenis-js-rsql'
+import { transformToRSQL } from '../src/rsql'
 import { ComparisonOperator, Operator } from '../src/types'
 
 describe('rsql', () => {
