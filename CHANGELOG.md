@@ -1,3 +1,10 @@
+## [0.2.4](https://github.com/molgenis/molgenis-js-rsql/compare/v0.2.3...v0.2.4) (2019-10-07)
+
+
+### Bug Fixes
+
+* **build:** add package.json to release ([fe24976](https://github.com/molgenis/molgenis-js-rsql/commit/fe24976))
+
 ## [0.2.3](https://github.com/molgenis/molgenis-js-rsql/compare/v0.2.2...v0.2.3) (2019-10-07)
 
 
