@@ -80,7 +80,7 @@ pipeline {
                 milestone 2
                 container('node') {
                     sh "npm config set unsafe-perm true"
-                    sh "yarn semantic-release"
+                    sh "npx semantic-release"
                 }
             }
         }
