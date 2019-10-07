@@ -1,3 +1,10 @@
+## [0.2.3](https://github.com/molgenis/molgenis-js-rsql/compare/v0.2.2...v0.2.3) (2019-10-07)
+
+
+### Bug Fixes
+
+* **ci:** build after versioning ([b655e57](https://github.com/molgenis/molgenis-js-rsql/commit/b655e57))
+
 ## [0.2.2](https://github.com/molgenis/molgenis-js-rsql/compare/v0.2.1...v0.2.2) (2019-10-07)
 
 
