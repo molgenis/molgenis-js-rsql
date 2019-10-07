@@ -1,6 +1,8 @@
 import { encode } from 'mdurl'
 import { Constraint, Value, Comparison, Group, Operator } from './types'
 
+export * from './types'
+
 export function containsRsqlReservedCharacter(value: string): boolean {
   return /["'();,=!~<> ]/.test(value)
 }
