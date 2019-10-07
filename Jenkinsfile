@@ -26,7 +26,7 @@ pipeline {
             steps {
                 container('node') {
                     sh "yarn install"
-                    sh "yarn unit"
+                    sh "yarn test:prod"
                 }
             }
             post {
@@ -50,7 +50,7 @@ pipeline {
                 milestone 1
                 container('node') {
                     sh "yarn install"
-                    sh "yarn unit"
+                    sh "yarn test:prod"
                 }
             }
             post {
@@ -80,7 +80,7 @@ pipeline {
                 milestone 2
                 container('node') {
                     sh "npm config set unsafe-perm true"
-                    sh "npx semantic-release"
+                    sh "yarn semantic-release"
                 }
             }
         }
