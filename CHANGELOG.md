@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/molgenis/molgenis-js-rsql/compare/v0.2.1...v0.2.2) (2019-10-07)
+
+
+### Bug Fixes
+
+* **package.json:** changed order of release steps ([2d43e3c](https://github.com/molgenis/molgenis-js-rsql/commit/2d43e3c))
+
 ## [0.2.1](https://github.com/molgenis/molgenis-js-rsql/compare/v0.2.0...v0.2.1) (2019-10-07)
 
 
