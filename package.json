@@ -45,6 +45,7 @@
     "commit": "git-cz",
     "precommit": "lint-staged",
     "prepush": "yarn test:prod && yarn build",
+    "postversion": "yarn build",
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "lint-staged": {
