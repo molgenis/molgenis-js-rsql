@@ -1,3 +1,5 @@
+import { Parser, ParserOptions } from 'pegjs'
+
 export enum Operator {
   And = 'AND',
   Or = 'OR'
@@ -31,3 +33,9 @@ export type Group = {
   operator: Operator
   operands: Constraint[]
 }
+
+export interface RsqlParser extends Parser {
+  parse: ParseFun
+}
+
+export type ParseFun = (input: string, options?: ParserOptions) => Constraint
