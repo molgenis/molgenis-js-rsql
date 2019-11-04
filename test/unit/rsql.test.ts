@@ -1,5 +1,5 @@
-import { transformToRSQL } from '../src/rsql'
-import { ComparisonOperator, Operator } from '../src/types'
+import { transformToRSQL } from '../../src/rsql'
+import { ComparisonOperator, Operator } from '../../src/types'
 
 describe('rsql', () => {
   describe('transformToRSQL', () => {

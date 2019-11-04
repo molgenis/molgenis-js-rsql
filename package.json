@@ -37,6 +37,7 @@
   "scripts": {
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
+    "pegjs": "pegjs -o src/parser.js src/grammar.pegjs",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest --coverage",
@@ -113,6 +114,7 @@
     "jest-config": "^23.6.0",
     "lint-staged": "^8.0.0",
     "lodash.camelcase": "^4.3.0",
+    "pegjs": "^0.10.0",
     "prettier": "^1.14.3",
     "prompt": "^1.0.0",
     "replace-in-file": "^3.4.2",
@@ -136,6 +138,7 @@
   },
   "dependencies": {
     "@types/mdurl": "^1.0.2",
+    "@types/pegjs": "^0.10.1",
     "mdurl": "^1.0.1"
   }
 }
