@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            label 'node-carbon'
+            label 'node-erbium'
         }
     }
     stages {
@@ -41,7 +41,7 @@ pipeline {
             when {
                 allOf {
                     branch 'master'
-                    not { 
+                    not {
                         changelog '.*\\[skip ci\\]$'
                     }
                 }
@@ -65,7 +65,7 @@ pipeline {
             when {
                 allOf {
                     branch 'master'
-                    not { 
+                    not {
                         changelog '.*\\[skip ci\\]$'
                     }
                 }
